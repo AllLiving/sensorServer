@@ -9,7 +9,9 @@ module.exports = (table) => {
     route.use((req, res, next) => next());
 
     route.post('/select', (req, res) => {
-        if (typeof req.body.idxs === Object) {
+        if(req.headers['content-type'] === 'application/x-www-form-urlencoded') 
+            req.body.cols = JSON.parse(req.body.cols);
+        if (typeof req.body.idxs === 'object') {
             operateTable.select(req.body, (err, results, fields) => {
                 if (err) return res.send(err);
                 res.send(results);
@@ -24,7 +26,9 @@ module.exports = (table) => {
     });
 
     route.post('/insert', (req, res) => {
-        if (typeof req.body.cols === Object) {
+        if(req.headers['content-type'] === 'application/x-www-form-urlencoded') 
+            req.body.cols = JSON.parse(req.body.cols);
+        if (typeof req.body.cols === 'object') {
             operateTable.insert(req.body, (err, results, fields) => {
                 if (err) return res.send(err);
                 res.send(results);
@@ -36,8 +40,10 @@ module.exports = (table) => {
     });
 
     route.post('/update', (req, res) => {
-        if (typeof req.body.cols === Object && typeof req.body.idxs === Object) {
-            operateTable.insert(req.body, (err, results, fields) => {
+        if(req.headers['content-type'] === 'application/x-www-form-urlencoded') 
+            req.body.cols = JSON.parse(req.body.cols);
+        if (typeof req.body.cols === 'object' && typeof req.body.idxs === 'object') {
+            operateTable.update(req.body, (err, results, fields) => {
                 if (err) return res.send(err);
                 res.send(results);
             });
@@ -48,8 +54,10 @@ module.exports = (table) => {
     });
 
     route.post('/delete', (req, res) => {
-        if (typeof req.body.idxs === Object) {
-            operateTable.insert(req.body, (err, results, fields) => {
+        if(req.headers['content-type'] === 'application/x-www-form-urlencoded') 
+            req.body.cols = JSON.parse(req.body.cols);
+        if (typeof req.body.idxs === 'object') {
+            operateTable.del(req.body, (err, results, fields) => {
                 if (err) return res.send(err);
                 res.send(results);
             });

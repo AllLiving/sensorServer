@@ -22,19 +22,19 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.get('/', (req, res) => res.send('apple')
 );
 
-app.use('/car', urlencodedParser, car);
+app.use('/car', jsonParser, urlencodedParser, car);
 
-app.use('/fleet', urlencodedParser, fleet);
+app.use('/fleet', jsonParser, urlencodedParser, fleet);
 
-app.use('/history_route', urlencodedParser, history_route);
+app.use('/history_route', jsonParser, urlencodedParser, history_route);
 
-app.use('/maintenance', urlencodedParser, maintenance);
+app.use('/maintenance', jsonParser, urlencodedParser, maintenance);
 
-app.use('/refuel', urlencodedParser, refuel);
+app.use('/refuel', jsonParser, urlencodedParser, refuel);
 
-app.use('/route', urlencodedParser, route);
+app.use('/route', jsonParser, urlencodedParser, route);
 
-app.use('/user', urlencodedParser, user);
+app.use('/user', jsonParser, urlencodedParser, user);
 
 app.listen(3000, function () {
     var host = this.address().address;

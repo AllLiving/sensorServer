@@ -17,7 +17,7 @@ var operateTable = (table) => {
             if (obj.idxs) {
                 sql += ' where ';
                 for (var idx of obj.idxs) {
-                    sql += idx.key + ' = ' + idx.value + ' and ';
+                    sql += '`' + idx.key + '` = ' + idx.value + ' and ';
                 }
                 sql = sql.substr(0, sql.length - 5);
             }
@@ -47,11 +47,11 @@ var operateTable = (table) => {
         update: (obj, callback) => {
             var sql = 'update ' + table.name + ' set ';
             for (var col of obj.cols) {
-                sql += col.key + ' = ' + col.value + ',';
+                sql += '`' + col.key + '` = ' + col.value + ',';
             }
             sql = sql.substr(0, sql.length - 1) + ' where ';
             for (var idx of obj.idxs) {
-                sql += col.key + ' = ' + col.value + ' and ';
+                sql += '`' + idx.key + '` = ' + idx.value + ' and ';
             }
             sql = sql.substr(0, sql.length - 5);
             sensor.getConnection((err, conn) => {
@@ -67,7 +67,7 @@ var operateTable = (table) => {
             if (obj.idxs) {
                 sql += ' where ';
                 for (var idx of obj.idxs) {
-                    sql += idx.key + ' = ' + idx.value + ' and ';
+                    sql += '`' + idx.key + '` = ' + idx.value + ' and ';
                 }
                 sql = sql.substr(0, sql.length - 5);
             }
